@@ -3,7 +3,7 @@ namespace Dunnatello {
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class SpaceHandler : MonoBehaviour {
+    public class GameSpace : MonoBehaviour {
 
         [SerializeField] private int position = 0;
 

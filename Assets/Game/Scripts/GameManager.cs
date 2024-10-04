@@ -10,25 +10,25 @@ namespace Dunnatello {
         [System.Serializable]
         public class BoardItem {
 
-            public SpaceHandler spaceHandler;
+            public GameSpace gameSpace;
             private int claimedByPlayer = -1;
 
-            public BoardItem(SpaceHandler spaceHandler) {
-                this.spaceHandler = spaceHandler;
+            public BoardItem(GameSpace gameSpace) {
+                this.gameSpace = gameSpace;
                 claimedByPlayer = -1;
             }
 
             public int CurrentPlayer { get { return claimedByPlayer; } }
 
             public void Reset() {
-                spaceHandler.Reset();
+                gameSpace.Reset();
                 claimedByPlayer = -1;
             }
 
             public bool ClaimSpace(int player) {
                 if (claimedByPlayer == -1) {
                     claimedByPlayer = player;
-                    spaceHandler.ClaimSpace(player);
+                    gameSpace.ClaimSpace(player);
                     return true;
                 }
                 else
@@ -48,6 +48,7 @@ namespace Dunnatello {
 
 
         private int currentGridSize = 3;
+        private int spacesFilled = 0;
 
         [SerializeField] private GameObject gameOverScreen;
         [SerializeField] private GameObject gameScreen;
@@ -63,13 +64,13 @@ namespace Dunnatello {
         private void LoadGame() {
 
             board.Clear();
-            SpaceHandler[] spaces = boardContainer.GetComponentsInChildren<SpaceHandler>();
+            GameSpace[] spaces = boardContainer.GetComponentsInChildren<GameSpace>();
 
             foreach (var spaceHandler in spaces) {
                 board.Add(new(spaceHandler));
             }
 
-            board.Sort((a, b) => a.spaceHandler.Position.CompareTo(b.spaceHandler.Position));
+            board.Sort((a, b) => a.gameSpace.Position.CompareTo(b.gameSpace.Position));
             StartGame();
         }
 
@@ -79,6 +80,7 @@ namespace Dunnatello {
         }
 
         private void StartGame() {
+            spacesFilled = 0;
             currentPlayer = 0;
             UpdateUI();
             gameCompleted = false;
@@ -87,7 +89,7 @@ namespace Dunnatello {
 
         private void UpdateUI() {
 
-            string playerName = currentPlayer == 0 ? "Player" : "Computer";
+            string playerName = $"Player {currentPlayer + 1}";
             playerTurn.text = $"{playerName}'s Turn";
 
         }
@@ -106,6 +108,7 @@ namespace Dunnatello {
             bool claimedSpace = item.ClaimSpace(currentPlayer);
 
             if (claimedSpace) {
+                spacesFilled++;
                 EndTurn();
 
             }
@@ -135,8 +138,9 @@ namespace Dunnatello {
 
         public void SetWinner(int winner) {
 
-            string playerName = winner == 0 ? "Player" : "Computer";
-            gameWinner.text = $"{playerName} wins!";
+            string playerName = $"Player {currentPlayer + 1}";
+            string resultMessage = (winner != -1) ? $"{playerName} wins!" : "Scratch!";
+            gameWinner.text = resultMessage;
 
         }
 
@@ -145,6 +149,11 @@ namespace Dunnatello {
             if (CheckWin(gridSize, out int winner)) {
                 Debug.Log($"Player {winner} wins!");
                 SetWinner(winner);
+                return true;
+            }
+
+            if (spacesFilled >= board.Count) {
+                SetWinner(-1);
                 return true;
             }
 
