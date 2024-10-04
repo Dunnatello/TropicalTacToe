@@ -6,7 +6,7 @@ namespace Dunnatello {
 
     public partial class GameManager {
 
-        public int GetBestMoveWithMistakes(BotStats bot) {
+        public int GetBestMove(BotStats bot) {
             int bestScore = int.MinValue;
             List<int> possibleMoves = new();
             int move = -1;
@@ -58,55 +58,37 @@ namespace Dunnatello {
 
             // Limit bot depth to reduce difficulty.
             if (CheckWin(currentGridSize, out int winner) || depth == 0) {
-                return ConvertWinResult(winner);
+                return ConvertWinResult(winner); // Converts return result from [0: Player 1 Win, 1: AI Win, -1: Draw] to [0: Draw, 1: AI Win, -1: Player Win]
             }
 
             if (spacesFilled >= board.Count) {
                 return 0; // Draw
             }
 
-            if (isMaximizing) {
+            int bestScore = isMaximizing ? int.MinValue : int.MaxValue;
 
-                int bestScore = int.MinValue;
-                for (int i = 0; i < board.Count; i++) {
+            // Loop Through All Board Positions
+            for (int i = 0; i < board.Count; i++) {
 
-                    if (board[i].CurrentPlayer == -1) {
+                // Available Space
+                if (board[i].CurrentPlayer == -1) {
 
-                        board[i].CurrentPlayer = 1;
-                        spacesFilled++;
+                    // Claim Space
+                    board[i].CurrentPlayer = isMaximizing ? 1 : 0;
+                    spacesFilled++;
 
-                        int score = Minimax(false, depth - 1);
-                        bestScore = Mathf.Max(score, bestScore);
+                    // Recursive Call: Alternate Between Maximizing & Minimizing
+                    int score = Minimax(!isMaximizing, depth - 1);
 
-                        board[i].CurrentPlayer = -1;
-                        spacesFilled--;
-                    }
+                    bestScore = isMaximizing ? Mathf.Max(score, bestScore) : Mathf.Min(score, bestScore);
+
+                    // Undo Move
+                    board[i].CurrentPlayer = -1;
+                    spacesFilled--;
                 }
-
-                return bestScore;
-
-            } else {
-
-
-                int bestScore = int.MaxValue;
-                for (int i = 0; i < board.Count; i++) {
-
-                    if (board[i].CurrentPlayer == -1) {
-
-                        board[i].CurrentPlayer = 0;
-                        spacesFilled++;
-
-                        int score = Minimax(true, depth - 1);
-                        bestScore = Mathf.Min(score, bestScore);
-
-                        board[i].CurrentPlayer = -1;
-                        spacesFilled--;
-                    }
-                }
-
-                return bestScore;
-
             }
+
+            return bestScore;
 
         }
 

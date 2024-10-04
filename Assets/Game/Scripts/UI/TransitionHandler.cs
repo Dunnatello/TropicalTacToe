@@ -40,7 +40,6 @@ namespace Dunnatello {
 
             float elapsedTime = 0;
             while (elapsedTime < duration) {
-
                 float t = elapsedTime / duration;
                 float easedT = EasingFunctions.EaseInOut(t);
 

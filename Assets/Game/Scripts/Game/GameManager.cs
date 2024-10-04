@@ -10,6 +10,7 @@ namespace Dunnatello {
 
     [System.Serializable]
     public class BotStats {
+        public string displayName = "Bot";
         public int maxDepth = 0;
         public float randomness = 0f;
         public float mistakeChance = 0f;
@@ -38,13 +39,15 @@ namespace Dunnatello {
 
         [SerializeField] private UIHandler uiHandler;
         [SerializeField] private WinHandler winHandler;
+        [SerializeField] private PlayerHandler playerHandler;
 
+        private string winType;
+        private int winPosition;
 
         // Start is called before the first frame update
         void Start() {
 
             uiHandler.ToggleUI(false);
-            LoadGame();
 
             // Get Game Mode
             string newGameMode = PlayerPrefs.GetString("Mode") ?? "Bot";
@@ -53,6 +56,12 @@ namespace Dunnatello {
             // Get Current Bot Difficulty
             if (gameMode == GameMode.Bot)
                 currentBot = PlayerPrefs.GetInt("Difficulty");
+
+            // Show Player Details
+            playerHandler.SetPlayerDetails(0, GetPlayerName(0), "Player");
+            playerHandler.SetPlayerDetails(1, GetPlayerName(1), gameMode == GameMode.Cooperative ? "Player" : "Bot");
+
+            LoadGame();
 
         }
 
@@ -72,6 +81,8 @@ namespace Dunnatello {
         private void StartGame() {
             spacesFilled = 0;
             currentPlayer = 0;
+
+            playerHandler.SetActivePlayer(currentPlayer);
 
             uiHandler.UpdateUI(GetPlayerName(currentPlayer));
 
@@ -109,6 +120,8 @@ namespace Dunnatello {
                 currentPlayer = currentPlayer == 0 ? 1 : 0;
                 uiHandler.UpdateUI(GetPlayerName(currentPlayer));
 
+                playerHandler.SetActivePlayer(currentPlayer);
+
                 if (gameMode == GameMode.Bot && currentPlayer == 1 && !gameCompleted) {
 
                     StartCoroutine(HandleBotMove());
@@ -123,7 +136,7 @@ namespace Dunnatello {
 
         public IEnumerator HandleBotMove() {
 
-            int bestMove = GetBestMoveWithMistakes(bots[currentBot]);
+            int bestMove = GetBestMove(bots[currentBot]);
 
             // Artificial Delay to Emulate Thinking
             yield return new WaitForSeconds(Random.Range(0.1f, 1f));
@@ -133,7 +146,6 @@ namespace Dunnatello {
 
         public void GameOver() {
             gameCompleted = true;
-            uiHandler.ShowEndScreen(true);
         }
 
 
@@ -144,7 +156,7 @@ namespace Dunnatello {
                 return string.Empty;
 
             if (gameMode == GameMode.Bot) {
-                return (player == 1) ? "Computer" : "Player";
+                return (player == 1) ? bots[currentBot].displayName : "Player";
             } else {
                 return $"Player {player + 1}";
             }
@@ -154,12 +166,12 @@ namespace Dunnatello {
 
             if (CheckWin(gridSize, out int winner)) {
 
-                winHandler.SetWinner(GetPlayerName(winner), winner != -1);
+                winHandler.SetWinner(GetPlayerName(winner), winner != -1, uiHandler, winType, winPosition);
                 return true;
             }
 
             if (spacesFilled >= board.Count) {
-                winHandler.SetWinner(GetPlayerName(-1), false);
+                winHandler.SetWinner(GetPlayerName(-1), false, uiHandler);
                 return true;
             }
 
@@ -193,11 +205,15 @@ namespace Dunnatello {
                 // Check Row Win
                 if (CheckLine(i * gridSize, 1, gridSize)) {
                     winner = board[i * gridSize].CurrentPlayer;
+                    winType = "Horizontal";
+                    winPosition = i;
                     return true;
                 }
 
                 // Check Column Win
                 if (CheckLine(i, gridSize, gridSize)) {
+                    winType = "Vertical";
+                    winPosition = i;
                     winner = board[i].CurrentPlayer;
                     return true;
                 }
@@ -206,11 +222,15 @@ namespace Dunnatello {
 
             // Check Diagonal Wins
             if (CheckLine(0, gridSize + 1, gridSize)) {
+                winType = "Diagonal";
+                winPosition = 0;
                 winner = board[0].CurrentPlayer;
                 return true;
             }
 
             if (CheckLine(gridSize - 1, gridSize - 1, gridSize)) {
+                winType = "Diagonal";
+                winPosition = 1;
                 winner = board[gridSize - 1].CurrentPlayer;
                 return true;
             }

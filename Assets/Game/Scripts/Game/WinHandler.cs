@@ -10,7 +10,9 @@ namespace Dunnatello {
 
         [SerializeField] private GameObject uiParticle;
 
-        public void SetWinner(string winner, bool playerWon) {
+        [SerializeField] private WinVisualizer winVisualizer;
+
+        public void SetWinner(string winner, bool playerWon, UIHandler uiHandler, string winType = null, int winPosition = 0) {
 
             uiParticle.SetActive(playerWon);
 
@@ -18,11 +20,23 @@ namespace Dunnatello {
             string resultMessage = playerWon ? $"{winner} wins!" : "Scratch!";
             gameWinner.text = resultMessage;
 
+            if (playerWon) {
+                StartCoroutine(OnGameEndCoroutine(winType, winPosition, uiHandler));
+            }
+            else {
+                uiHandler.ShowEndScreen(true);
+            }
+
         }
 
-        // Update is called once per frame
-        void Update() {
+        public IEnumerator OnGameEndCoroutine(string winType, int winPosition, UIHandler uiHandler) {
 
+            Debug.Log($"Showing Win: {winType} {winPosition}");
+
+            winVisualizer.ShowWin(winType, winPosition);
+            yield return new WaitForSeconds(winVisualizer.TransitionDuration * 2f);
+            uiHandler.ShowEndScreen(true);
         }
+
     }
 }

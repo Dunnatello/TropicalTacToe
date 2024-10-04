@@ -11,6 +11,7 @@ namespace Dunnatello {
 
         [SerializeField] private TextMeshProUGUI playerTurn;
 
+        [SerializeField] private WinVisualizer winVisualizer;
 
         public void ToggleUI(bool isVisible) {
             gameScreen.SetActive(isVisible);
@@ -23,6 +24,10 @@ namespace Dunnatello {
 
         public void ShowEndScreen(bool shouldShow) {
             gameOverScreen.SetActive(shouldShow);
+
+            if (!shouldShow)
+                winVisualizer.HideAll();
+
         }
 
         public void UpdateUI(string currentPlayer) {
@@ -31,14 +36,5 @@ namespace Dunnatello {
 
         }
 
-        // Start is called before the first frame update
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-
-        }
     }
 }
