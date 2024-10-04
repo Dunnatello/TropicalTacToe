@@ -24,7 +24,10 @@ namespace Dunnatello {
             foreach (var icon in icons) { icon.gameObject.SetActive(false); };
         }
         public void ActivateSpace() {
-            gameManager.ClaimSpace(position);
+
+            if (gameManager.CanClaimSpace)
+                gameManager.ClaimSpace(position);
+
         }
 
     }

@@ -1,66 +1,58 @@
 namespace Dunnatello {
-
+    using System.Collections;
     using System.Collections.Generic;
-    using TMPro;
     using UnityEngine;
 
-    public class GameManager : MonoBehaviour {
+    public enum GameMode {
+        Cooperative,
+        Bot,
+    }
 
+    [System.Serializable]
+    public class BotStats {
+        public int maxDepth = 0;
+        public float randomness = 0f;
+        public float mistakeChance = 0f;
+    }
 
-        [System.Serializable]
-        public class BoardItem {
+    public partial class GameManager : MonoBehaviour {
 
-            public GameSpace gameSpace;
-            private int claimedByPlayer = -1;
-
-            public BoardItem(GameSpace gameSpace) {
-                this.gameSpace = gameSpace;
-                claimedByPlayer = -1;
-            }
-
-            public int CurrentPlayer { get { return claimedByPlayer; } }
-
-            public void Reset() {
-                gameSpace.Reset();
-                claimedByPlayer = -1;
-            }
-
-            public bool ClaimSpace(int player) {
-                if (claimedByPlayer == -1) {
-                    claimedByPlayer = player;
-                    gameSpace.ClaimSpace(player);
-                    return true;
-                }
-                else
-                    return false;
-
-            }
-
-        }
-
+        // Game Variables
         private int currentPlayer = 0;
         private bool gameCompleted = false;
-
-        private List<BoardItem> board = new();
-
-        [SerializeField] private Transform boardContainer;
-        [SerializeField] private TextMeshProUGUI playerTurn;
-
-
-        private int currentGridSize = 3;
         private int spacesFilled = 0;
+        [SerializeField] private int currentGridSize = 3;
 
-        [SerializeField] private GameObject gameOverScreen;
-        [SerializeField] private GameObject gameScreen;
-        [SerializeField] private TextMeshProUGUI gameWinner;
+        [SerializeField] private int currentBot = 0;
+        [SerializeField] private List<BotStats> bots = new();
 
-        [SerializeField] private GameObject uiParticle;
+        private readonly List<BoardItem> board = new();
+
+        // TODO: Remove Serialization Later
+        [SerializeField] private GameMode gameMode = GameMode.Cooperative;
+
+        public bool CanClaimSpace { get { return gameMode == GameMode.Cooperative || gameMode == GameMode.Bot && currentPlayer == 0; } }
+
+        // References
+        [SerializeField] private Transform boardContainer;
+
+        [SerializeField] private UIHandler uiHandler;
+        [SerializeField] private WinHandler winHandler;
+
 
         // Start is called before the first frame update
         void Start() {
-            gameScreen.SetActive(false);
-            gameOverScreen.SetActive(false);
+
+            uiHandler.ToggleUI(false);
             LoadGame();
+
+            // Get Game Mode
+            string newGameMode = PlayerPrefs.GetString("Mode") ?? "Bot";
+            gameMode = newGameMode == "Bot" ? GameMode.Bot : GameMode.Cooperative;
+
+            // Get Current Bot Difficulty
+            if (gameMode == GameMode.Bot)
+                currentBot = PlayerPrefs.GetInt("Difficulty");
 
         }
 
@@ -80,16 +72,12 @@ namespace Dunnatello {
         private void StartGame() {
             spacesFilled = 0;
             currentPlayer = 0;
-            UpdateUI();
+
+            uiHandler.UpdateUI(GetPlayerName(currentPlayer));
+
             gameCompleted = false;
-            gameScreen.SetActive(true);
-        }
 
-        private void UpdateUI() {
-
-            string playerName = $"Player {currentPlayer + 1}";
-            playerTurn.text = $"{playerName}'s Turn";
-
+            uiHandler.ShowGameScreen(true);
         }
 
         public void ClaimSpace(int position) {
@@ -119,38 +107,59 @@ namespace Dunnatello {
 
             if (!isGameOver) {
                 currentPlayer = currentPlayer == 0 ? 1 : 0;
-                UpdateUI();
+                uiHandler.UpdateUI(GetPlayerName(currentPlayer));
+
+                if (gameMode == GameMode.Bot && currentPlayer == 1 && !gameCompleted) {
+
+                    StartCoroutine(HandleBotMove());
+
+                }
+
             } else {
                 GameOver();
             }
 
         }
 
-        public void GameOver() {
-            gameCompleted = true;
-            gameOverScreen.SetActive(true);
-            
+        public IEnumerator HandleBotMove() {
+
+            int bestMove = GetBestMoveWithMistakes(bots[currentBot]);
+
+            // Artificial Delay to Emulate Thinking
+            yield return new WaitForSeconds(Random.Range(0.1f, 1f));
+            ClaimSpace(bestMove);
+
         }
 
-        public void SetWinner(int winner) {
+        public void GameOver() {
+            gameCompleted = true;
+            uiHandler.ShowEndScreen(true);
+        }
 
-            string playerName = $"Player {currentPlayer + 1}";
-            string resultMessage = (winner != -1) ? $"{playerName} wins!" : "Scratch!";
-            gameWinner.text = resultMessage;
 
+
+        public string GetPlayerName(int player) {
+
+            if (player == -1)
+                return string.Empty;
+
+            if (gameMode == GameMode.Bot) {
+                return (player == 1) ? "Computer" : "Player";
+            } else {
+                return $"Player {player + 1}";
+            }
         }
 
         public bool CheckBoard(int gridSize) {
 
             if (CheckWin(gridSize, out int winner)) {
-                uiParticle.SetActive(true);
-                SetWinner(winner);
+
+                winHandler.SetWinner(GetPlayerName(winner), winner != -1);
                 return true;
             }
 
             if (spacesFilled >= board.Count) {
-                uiParticle.SetActive(false);
-                SetWinner(-1);
+                winHandler.SetWinner(GetPlayerName(-1), false);
                 return true;
             }
 
@@ -158,13 +167,22 @@ namespace Dunnatello {
         }
 
         public void Restart() {
-            gameOverScreen.SetActive(false);
+
+            uiHandler.ShowEndScreen(false);
 
             foreach (var space in board) {
                 space.Reset();
             }
             StartGame();
 
+        }
+        
+        public int ConvertWinResult(int winner) {
+            return winner switch {
+                1 => 1, // Bot Wins
+                0 => -1, // Player Wins
+                _ => 0, // Draw
+            };
         }
 
         public bool CheckWin(int gridSize, out int winner) {
@@ -185,7 +203,6 @@ namespace Dunnatello {
                 }
 
             }
-
 
             // Check Diagonal Wins
             if (CheckLine(0, gridSize + 1, gridSize)) {
