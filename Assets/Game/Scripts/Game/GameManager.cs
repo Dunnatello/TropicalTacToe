@@ -59,6 +59,7 @@ namespace Dunnatello {
         // Start is called before the first frame update
         void Start() {
             gameScreen.SetActive(false);
+            gameOverScreen.SetActive(false);
             LoadGame();
 
         }
@@ -127,7 +128,6 @@ namespace Dunnatello {
 
         public void GameOver() {
             gameCompleted = true;
-            Debug.Log("GAME OVER");
             gameOverScreen.SetActive(true);
             
         }
@@ -144,7 +144,6 @@ namespace Dunnatello {
 
             if (CheckWin(gridSize, out int winner)) {
                 uiParticle.SetActive(true);
-                Debug.Log($"Player {winner} wins!");
                 SetWinner(winner);
                 return true;
             }

@@ -2,6 +2,7 @@ namespace Dunnatello {
 
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.UI;
 
     public class GameSpace : MonoBehaviour {
 
@@ -10,18 +11,17 @@ namespace Dunnatello {
         public int Position { get { return position; } }
 
 
-        public List<GameObject> icons = new();
+        public List<Image> icons = new();
 
         public GameManager gameManager;
+        public TransitionHandler transitionHandler;
 
         public void ClaimSpace(int player) {
-
-            icons[player].SetActive(true);
-
+            transitionHandler.TweenFillAmount(icons[player], 1f, 0.25f);
         }
 
         public void Reset() {
-            foreach (var icon in icons) { icon.SetActive(false); };
+            foreach (var icon in icons) { icon.gameObject.SetActive(false); };
         }
         public void ActivateSpace() {
             gameManager.ClaimSpace(position);
