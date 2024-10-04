@@ -1,5 +1,5 @@
 namespace Dunnatello {
-    using System.Collections;
+
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -76,11 +76,6 @@ namespace Dunnatello {
             StartGame();
         }
 
-
-        public void Quit() {
-            Application.Quit();
-        }
-
         private void StartGame() {
             spacesFilled = 0;
             currentPlayer = 0;
@@ -133,7 +128,6 @@ namespace Dunnatello {
         public void GameOver() {
             gameCompleted = true;
             Debug.Log("GAME OVER");
-            //gameScreen.SetActive(false);
             gameOverScreen.SetActive(true);
             
         }
