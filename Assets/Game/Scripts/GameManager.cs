@@ -54,6 +54,8 @@ namespace Dunnatello {
         [SerializeField] private GameObject gameScreen;
         [SerializeField] private TextMeshProUGUI gameWinner;
 
+        [SerializeField] private GameObject uiParticle;
+
         // Start is called before the first frame update
         void Start() {
             gameScreen.SetActive(false);
@@ -147,12 +149,14 @@ namespace Dunnatello {
         public bool CheckBoard(int gridSize) {
 
             if (CheckWin(gridSize, out int winner)) {
+                uiParticle.SetActive(true);
                 Debug.Log($"Player {winner} wins!");
                 SetWinner(winner);
                 return true;
             }
 
             if (spacesFilled >= board.Count) {
+                uiParticle.SetActive(false);
                 SetWinner(-1);
                 return true;
             }
