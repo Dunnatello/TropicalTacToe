@@ -2,6 +2,7 @@ namespace Dunnatello {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.EventSystems;
 
     public enum GameMode {
         Cooperative,
@@ -32,7 +33,8 @@ namespace Dunnatello {
         // TODO: Remove Serialization Later
         [SerializeField] private GameMode gameMode = GameMode.Cooperative;
 
-        public bool CanClaimSpace { get { return gameMode == GameMode.Cooperative || gameMode == GameMode.Bot && currentPlayer == 0; } }
+        public bool IsPlayerTurn { get { return gameMode == GameMode.Cooperative || gameMode == GameMode.Bot && currentPlayer == 0; } }
+        public int CurrentPlayer { get { return currentPlayer; } }
 
         // References
         [SerializeField] private Transform boardContainer;
@@ -41,9 +43,12 @@ namespace Dunnatello {
         [SerializeField] private WinHandler winHandler;
         [SerializeField] private PlayerHandler playerHandler;
 
+        [SerializeField] private EventSystem eventSystem;
+
         private string winType;
         private int winPosition;
 
+        
         // Start is called before the first frame update
         void Start() {
 
@@ -82,6 +87,8 @@ namespace Dunnatello {
             spacesFilled = 0;
             currentPlayer = 0;
 
+            eventSystem.SetSelectedGameObject(board[0].gameSpace.gameObject);
+
             playerHandler.SetActivePlayer(currentPlayer);
 
             uiHandler.UpdateUI(GetPlayerName(currentPlayer));
@@ -89,6 +96,14 @@ namespace Dunnatello {
             gameCompleted = false;
 
             uiHandler.ShowGameScreen(true);
+        }
+
+        public bool IsSpaceClaimed(int position) {
+
+            if (position < 0 || position > board.Count - 1) return true;
+
+            return board[position].CurrentPlayer != -1;
+
         }
 
         public void ClaimSpace(int position) {
@@ -145,6 +160,11 @@ namespace Dunnatello {
         }
 
         public void GameOver() {
+
+            foreach (BoardItem item in board) {
+                item.gameSpace.DeselectSpace();
+            }
+            
             gameCompleted = true;
         }
 

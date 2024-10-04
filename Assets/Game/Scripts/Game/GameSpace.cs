@@ -13,11 +13,30 @@ namespace Dunnatello {
 
         public List<Image> icons = new();
 
-        public GameManager gameManager;
-        public TransitionHandler transitionHandler;
+        [SerializeField] private GameManager gameManager;
+        [SerializeField] private TransitionHandler transitionHandler;
 
+        [SerializeField] private Image selected;
+
+        [SerializeField] private Color selectionAllowed;
+        [SerializeField] private Color selectionDisabled;
+        
         public void ClaimSpace(int player) {
             transitionHandler.TweenFillAmount(icons[player], 1f, 0.25f);
+        }
+
+        public void SelectSpace() {
+
+            selected.gameObject.SetActive(true);
+            Sprite currentPlayerIcon = icons[gameManager.CurrentPlayer].sprite;
+            selected.sprite = currentPlayerIcon;
+
+            selected.color = gameManager.IsPlayerTurn && !gameManager.IsSpaceClaimed(position) ? selectionAllowed : selectionDisabled;
+
+        }
+
+        public void DeselectSpace() {
+            selected.gameObject.SetActive(false);
         }
 
         public void Reset() {
@@ -25,8 +44,10 @@ namespace Dunnatello {
         }
         public void ActivateSpace() {
 
-            if (gameManager.CanClaimSpace)
+            if (gameManager.IsPlayerTurn)
                 gameManager.ClaimSpace(position);
+
+            SelectSpace();
 
         }
 

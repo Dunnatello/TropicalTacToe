@@ -3,6 +3,7 @@ namespace Dunnatello {
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
+    using UnityEngine.EventSystems;
 
     public class UIHandler : MonoBehaviour {
 
@@ -12,6 +13,9 @@ namespace Dunnatello {
         [SerializeField] private TextMeshProUGUI playerTurn;
 
         [SerializeField] private WinVisualizer winVisualizer;
+
+        [SerializeField] private GameObject restartButton;
+        [SerializeField] private EventSystem eventSystem;
 
         public void ToggleUI(bool isVisible) {
             gameScreen.SetActive(isVisible);
@@ -25,8 +29,11 @@ namespace Dunnatello {
         public void ShowEndScreen(bool shouldShow) {
             gameOverScreen.SetActive(shouldShow);
 
+
             if (!shouldShow)
                 winVisualizer.HideAll();
+            else
+                eventSystem.SetSelectedGameObject(restartButton);
 
         }
 
