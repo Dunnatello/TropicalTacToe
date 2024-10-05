@@ -2797,6 +2797,7 @@ GameObject:
   - component: {fileID: 591667344}
   - component: {fileID: 591667346}
   - component: {fileID: 591667345}
+  - component: {fileID: 591667347}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -2845,8 +2846,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Tropical\nTac \nToe"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a22600962c4763944a1a8344cc92e76c, type: 2}
-  m_sharedMaterial: {fileID: 298156843601152493, guid: a22600962c4763944a1a8344cc92e76c,
+  m_fontAsset: {fileID: 11400000, guid: 22094b8fe902cb6489957385556f2b27, type: 2}
+  m_sharedMaterial: {fileID: 298156843601152493, guid: 22094b8fe902cb6489957385556f2b27,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2855,14 +2856,15 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
+  m_fontColorGradientPreset: {fileID: 11400000, guid: bcb5397dac483ee4599b10bfb39d2a64,
+    type: 2}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
@@ -2871,13 +2873,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2923,6 +2925,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591667343}
   m_CullTransparentMesh: 1
+--- !u!114 &591667347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591667343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac46da60c1acb3c45bffaf6e725d5ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveSpeed: 5
+  waveHeight: 2
 --- !u!1001 &599948907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4155,7 +4171,7 @@ RectTransform:
   - {fileID: 1305717748}
   - {fileID: 814799219}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.388, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
