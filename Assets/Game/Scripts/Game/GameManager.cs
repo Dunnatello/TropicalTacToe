@@ -10,11 +10,18 @@ namespace Dunnatello {
     }
 
     [System.Serializable]
+    public class FloatRange {
+        public float min = 0.1f;
+        public float max = 1f;
+    }
+
+    [System.Serializable]
     public class BotStats {
         public string displayName = "Bot";
         public int maxDepth = 0;
         public float randomness = 0f;
         public float mistakeChance = 0f;
+        public FloatRange reactionTime;
     }
 
     public partial class GameManager : MonoBehaviour {
@@ -64,7 +71,7 @@ namespace Dunnatello {
 
             // Show Player Details
             playerHandler.SetPlayerDetails(0, GetPlayerName(0), "Player");
-            playerHandler.SetPlayerDetails(1, GetPlayerName(1), gameMode == GameMode.Cooperative ? "Player" : "Bot");
+            playerHandler.SetPlayerDetails(1, GetPlayerName(1), gameMode == GameMode.Cooperative ? "Player" : "Bot", 1);
 
             LoadGame();
 
@@ -151,10 +158,12 @@ namespace Dunnatello {
 
         public IEnumerator HandleBotMove() {
 
-            int bestMove = GetBestMove(bots[currentBot]);
+            BotStats bot = bots[currentBot];
+
+            int bestMove = GetBestMove(bot);
 
             // Artificial Delay to Emulate Thinking
-            yield return new WaitForSeconds(Random.Range(0.1f, 1f));
+            yield return new WaitForSeconds(Random.Range(bot.reactionTime.min, bot.reactionTime.max));
             ClaimSpace(bestMove);
 
         }
@@ -176,7 +185,7 @@ namespace Dunnatello {
                 return string.Empty;
 
             if (gameMode == GameMode.Bot) {
-                return (player == 1) ? bots[currentBot].displayName : "Player";
+                return (player == 1) ? bots[currentBot].displayName : "You";
             } else {
                 return $"Player {player + 1}";
             }
@@ -186,12 +195,15 @@ namespace Dunnatello {
 
             if (CheckWin(gridSize, out int winner)) {
 
-                winHandler.SetWinner(GetPlayerName(winner), winner != -1, uiHandler, winType, winPosition);
+                winHandler.SetWinner(GetPlayerName(winner), winner != -1,
+                    (winner != -1 && gameMode == GameMode.Cooperative) || (winner == 0 && gameMode == GameMode.Bot), 
+                    uiHandler, winType, winPosition);
+
                 return true;
             }
 
             if (spacesFilled >= board.Count) {
-                winHandler.SetWinner(GetPlayerName(-1), false, uiHandler);
+                winHandler.SetWinner(GetPlayerName(-1), false, false, uiHandler);
                 return true;
             }
 

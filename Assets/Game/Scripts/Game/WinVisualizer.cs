@@ -6,10 +6,12 @@ namespace Dunnatello {
 
     public class WinVisualizer : MonoBehaviour {
 
+        [Header("UI")]
         [SerializeField] private List<Image> horizontalWins = new();
         [SerializeField] private List<Image> verticalWins = new();
         [SerializeField] private List<Image> diagonalWins = new();
 
+        [Header("Scripts")]
         [SerializeField] private TransitionHandler transitionHandler;
 
         public float TransitionDuration { get; private set; } = 1f;
