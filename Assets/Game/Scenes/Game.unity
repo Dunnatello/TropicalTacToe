@@ -166,6 +166,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9744229}
   m_CullTransparentMesh: 1
+--- !u!114 &89329626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6153881492748011660, guid: 348cbd3885f21a44991975b547102d9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1068773023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &166478828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,6 +2339,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &836443859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6576035057947098584, guid: 348cbd3885f21a44991975b547102d9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 909035450095576404}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &844042171
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,35 +3342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGridSize: 3
   currentBot: 2
-  bots:
-  - displayName: Easy Bot
-    maxDepth: 1
-    randomness: 0.8
-    mistakeChance: 0.6
-    reactionTime:
-      min: 0.3
-      max: 1.1
-  - displayName: Medium Bot
-    maxDepth: 3
-    randomness: 0.4
-    mistakeChance: 0.3
-    reactionTime:
-      min: 0.25
-      max: 0.9
-  - displayName: Hard Bot
-    maxDepth: 6
-    randomness: 0.2
-    mistakeChance: 0.1
-    reactionTime:
-      min: 0.2
-      max: 0.8
-  - displayName: Impossible Bot
-    maxDepth: 9
-    randomness: 0.1
-    mistakeChance: 0.05
-    reactionTime:
-      min: 0.18
-      max: 0.75
+  botManager: {fileID: 11400000, guid: 9740b84ff7208bc4bb7d169922e3bcab, type: 2}
   gameMode: 1
   boardContainer: {fileID: 1550584031}
   uiHandler: {fileID: 1066346905}
@@ -3583,6 +3573,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1068773028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6576035057947098584, guid: 348cbd3885f21a44991975b547102d9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1068773023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1077368605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5730,6 +5726,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751975127}
   m_CullTransparentMesh: 1
+--- !u!114 &1771421733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6153881492748011660, guid: 348cbd3885f21a44991975b547102d9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 909035450095576404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1785372332
 GameObject:
   m_ObjectHideFlags: 0
@@ -6290,10 +6298,14 @@ MonoBehaviour:
     playerTurn: {fileID: 956205064}
     playerIcon: {fileID: 1793710632}
     spaceIcon: {fileID: 909035450095576405}
+    background: {fileID: 1771421733}
+    botTag: {fileID: 836443859}
   - playerName: {fileID: 1068773026}
     playerTurn: {fileID: 305209107}
     playerIcon: {fileID: 1068773025}
     spaceIcon: {fileID: 1068773027}
+    background: {fileID: 89329626}
+    botTag: {fileID: 1068773028}
   sprites:
   - key: Bot
     value: {fileID: 21300000, guid: d4dad19822509cd489ef6019df1dd8f0, type: 3}

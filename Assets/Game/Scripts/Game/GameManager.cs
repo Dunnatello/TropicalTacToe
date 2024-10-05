@@ -1,4 +1,5 @@
 namespace Dunnatello {
+    using Dunnatello.AI;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -15,14 +16,7 @@ namespace Dunnatello {
         public float max = 1f;
     }
 
-    [System.Serializable]
-    public class BotStats {
-        public string displayName = "Bot";
-        public int maxDepth = 0;
-        public float randomness = 0f;
-        public float mistakeChance = 0f;
-        public FloatRange reactionTime;
-    }
+
 
     public partial class GameManager : MonoBehaviour {
 
@@ -33,7 +27,7 @@ namespace Dunnatello {
         [SerializeField] private int currentGridSize = 3;
 
         [SerializeField] private int currentBot = 0;
-        [SerializeField] private List<BotStats> bots = new();
+        [SerializeField] private BotManager botManager;
 
         private readonly List<BoardItem> board = new();
 
@@ -42,6 +36,7 @@ namespace Dunnatello {
 
         public bool IsPlayerTurn { get { return gameMode == GameMode.Cooperative || gameMode == GameMode.Bot && currentPlayer == 0; } }
         public int CurrentPlayer { get { return currentPlayer; } }
+        public GameMode CurrentMode => gameMode;
 
         // References
         [SerializeField] private Transform boardContainer;
@@ -55,12 +50,14 @@ namespace Dunnatello {
         private string winType;
         private int winPosition;
 
-        
+        private Color defaultColor = new(38f / 255f, 77f / 255f, 115f / 255f);
+
         // Start is called before the first frame update
         void Start() {
 
             uiHandler.ToggleUI(false);
 
+            
             // Get Game Mode
             string newGameMode = PlayerPrefs.GetString("Mode") ?? "Bot";
             gameMode = newGameMode == "Bot" ? GameMode.Bot : GameMode.Cooperative;
@@ -70,8 +67,20 @@ namespace Dunnatello {
                 currentBot = PlayerPrefs.GetInt("Difficulty");
 
             // Show Player Details
-            playerHandler.SetPlayerDetails(0, GetPlayerName(0), "Player");
-            playerHandler.SetPlayerDetails(1, GetPlayerName(1), gameMode == GameMode.Cooperative ? "Player" : "Bot", 1);
+            playerHandler.SetPlayerDetails(0, GetPlayerName(0), defaultColor, "Player"); // Results in a white color
+
+            bool isBot = gameMode == GameMode.Bot;
+
+            if (isBot) {
+                
+                Bot activeBot = botManager.bots[currentBot];
+                playerHandler.SetPlayerDetails(1, activeBot.displayName, activeBot.botBackgroundColor, "Bot", 1, activeBot.botThumbnail, true);
+
+            }
+            else {
+                playerHandler.SetPlayerDetails(1, GetPlayerName(1), defaultColor, "Player");
+            }
+            
 
             LoadGame();
 
@@ -158,7 +167,7 @@ namespace Dunnatello {
 
         public IEnumerator HandleBotMove() {
 
-            BotStats bot = bots[currentBot];
+            Bot bot = botManager.bots[currentBot];
 
             int bestMove = GetBestMove(bot);
 
@@ -185,7 +194,7 @@ namespace Dunnatello {
                 return string.Empty;
 
             if (gameMode == GameMode.Bot) {
-                return (player == 1) ? bots[currentBot].displayName : "You";
+                return (player == 1) ? botManager.bots[currentBot].displayName : "You";
             } else {
                 return $"Player {player + 1}";
             }

@@ -1,12 +1,12 @@
 namespace Dunnatello {
-    using System.Collections;
+    
+    using Dunnatello.AI;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.Rendering;
 
     public partial class GameManager {
 
-        public int GetBestMove(BotStats bot) {
+        public int GetBestMove(Bot bot) {
             int bestScore = int.MinValue;
             List<int> possibleMoves = new();
             int move = -1;

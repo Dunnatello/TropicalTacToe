@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456a19720fcf1474d9e09e21f3ad0150, type: 3}
+  m_Name: Medium
+  m_EditorClassIdentifier: 
+  displayName: Cool Mango
+  botThumbnail: {fileID: 0}
+  botBackgroundColor: {r: 0.9622642, g: 0.63642716, b: 0.086240634, a: 1}
+  maxDepth: 6
+  randomness: 0.3
+  mistakeChance: 0.15
+  reactionTime:
+    min: 0.3
+    max: 0.9

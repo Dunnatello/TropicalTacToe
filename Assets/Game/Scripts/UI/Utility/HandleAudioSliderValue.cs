@@ -16,7 +16,8 @@ namespace Dunnatello.UI {
                 audioHandler = FindFirstObjectByType<AudioHandler>();
             }
 
-            slider.value = audioHandler.GetAudioVolume(sliderName);
+            if (audioHandler != null)
+                slider.value = audioHandler.GetAudioVolume(sliderName);
 
         }
 

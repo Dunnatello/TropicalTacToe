@@ -28,7 +28,7 @@ namespace Dunnatello {
         public void SelectSpace() {
 
             selected.gameObject.SetActive(true);
-            Sprite currentPlayerIcon = icons[gameManager.CurrentPlayer].sprite;
+            Sprite currentPlayerIcon = gameManager.CurrentMode == GameMode.Cooperative ? icons[gameManager.CurrentPlayer].sprite : icons[0].sprite; // TODO: Replace with Current Player Icon
             selected.sprite = currentPlayerIcon;
 
             selected.color = gameManager.IsPlayerTurn && !gameManager.IsSpaceClaimed(position) ? selectionAllowed : selectionDisabled;
@@ -46,8 +46,6 @@ namespace Dunnatello {
 
             if (gameManager.IsPlayerTurn)
                 gameManager.ClaimSpace(position);
-
-            SelectSpace();
 
         }
 

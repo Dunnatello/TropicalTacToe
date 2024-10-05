@@ -14,6 +14,8 @@ namespace Dunnatello {
             public TextMeshProUGUI playerTurn;
             public Image playerIcon;
             public Image spaceIcon;
+            public Image background;
+            public GameObject botTag;
         }
 
         [SerializeField] private List<PlayerView> players = new();
@@ -45,7 +47,8 @@ namespace Dunnatello {
 
         }
 
-        public void SetPlayerDetails(int playerId, string playerName, string spriteIcon = "Player", int spaceIcon = 0) {
+        public void SetPlayerDetails(int playerId, string playerName, Color customColor, string spriteIcon = "Player", int spaceIcon = 0, Sprite customIcon = null, bool isBot = false) {
+            
             
             // Get Player View
             PlayerView playerView;
@@ -57,6 +60,9 @@ namespace Dunnatello {
             // Set Player Name
             playerView.playerName.text = playerName;
 
+            // Set Bot Tag
+            playerView.botTag.SetActive(isBot);
+
             // Set Player Turn Info
             playerView.playerTurn.text = spriteIcon == "Bot" ? "Their Turn" : "Your Turn"; // TODO: Use Game Mode Check
             playerView.playerTurn.gameObject.SetActive(false);
@@ -65,11 +71,14 @@ namespace Dunnatello {
             playerView.spaceIcon.sprite = gameSpaceIcons[spaceIcon];
 
             // Set Player Icon
-            var sprite = sprites.Find(pair => pair.key.Equals(spriteIcon));
+            var sprite = customIcon != null ? customIcon : sprites.Find(pair => pair.key.Equals(spriteIcon))?.value;
 
             if (sprite != null) {
-                playerView.playerIcon.sprite = sprite.value;
+                playerView.playerIcon.sprite = sprite;
             }
+
+            // Set Background Color
+            playerView.background.color = customColor;
 
         }
 
