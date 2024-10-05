@@ -106,8 +106,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Player
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a22600962c4763944a1a8344cc92e76c, type: 2}
-  m_sharedMaterial: {fileID: 298156843601152493, guid: a22600962c4763944a1a8344cc92e76c,
+  m_fontAsset: {fileID: 11400000, guid: 14006d2e1295e9740ae38f3ec3aebb91, type: 2}
+  m_sharedMaterial: {fileID: 298156843601152493, guid: 14006d2e1295e9740ae38f3ec3aebb91,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -349,8 +349,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Your Turn
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a22600962c4763944a1a8344cc92e76c, type: 2}
-  m_sharedMaterial: {fileID: 298156843601152493, guid: a22600962c4763944a1a8344cc92e76c,
+  m_fontAsset: {fileID: 11400000, guid: 14006d2e1295e9740ae38f3ec3aebb91, type: 2}
+  m_sharedMaterial: {fileID: 298156843601152493, guid: 14006d2e1295e9740ae38f3ec3aebb91,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

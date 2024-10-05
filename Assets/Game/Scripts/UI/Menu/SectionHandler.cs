@@ -1,4 +1,5 @@
-namespace Dunnatello {
+namespace Dunnatello.UI {
+    
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.EventSystems;
@@ -9,6 +10,7 @@ namespace Dunnatello {
             public string name;
             public GameObject section;
             public GameObject firstButton;
+            public DeselectAllButtons buttonHandler;
         }
 
         [SerializeField] private List<Section> sections = new();
@@ -16,6 +18,8 @@ namespace Dunnatello {
         [SerializeField] private EventSystem eventSystem;
 
         [SerializeField] private string defaultSection = "Menu";
+        [SerializeField] private bool handleButtonDeselection = false;
+
         private void Start() {
             GoToSection(defaultSection);
         }
@@ -27,8 +31,13 @@ namespace Dunnatello {
                 bool showSection = section.name.Equals(sectionName);
                 section.section.SetActive(showSection);
 
-                if (showSection)
+                if (showSection) {
+
+                    if (handleButtonDeselection)
+                        section.buttonHandler.DeselectAll();
+                    
                     eventSystem.SetSelectedGameObject(section.firstButton);
+                }
 
             }
 
