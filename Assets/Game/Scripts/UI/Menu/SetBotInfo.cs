@@ -43,7 +43,7 @@ namespace Dunnatello.UI {
             randomness.text = $"<color={statTitleColor}>Randomness</color>\n{(int) (bot.randomness * 100)}%";
             mistakeChance.text = $"<color={statTitleColor}>Mistake Chance</color>\n{(int) (bot.mistakeChance * 100)}%";
             
-            maxDepth.text = $"<color={statTitleColor}>Lookahead</color>\n{bot.maxDepth} moves";
+            maxDepth.text = $"<color={statTitleColor}>Lookahead</color>\n{bot.maxDepth / 2} moves";
             reactionTime.text = $"<color={statTitleColor}>Reaction Time</color>\n{bot.reactionTime.min}s to {bot.reactionTime.max}s";
 
         }

@@ -5,7 +5,6 @@ namespace Dunnatello.UI {
     public class ButtonEffect : MonoBehaviour {
 
         private bool isHovering = false;
-
         private bool transitioning = false;
 
         public void Enter() {

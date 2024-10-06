@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Mr. Kraken
   botThumbnail: {fileID: 0}
   botBackgroundColor: {r: 0.018912422, g: 0.8018868, b: 0.023978425, a: 1}
-  maxDepth: 15
+  maxDepth: 16
   randomness: 0.04
   mistakeChance: 0.03
   reactionTime:

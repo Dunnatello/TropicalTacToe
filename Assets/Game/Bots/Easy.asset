@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Friendly Coconut
   botThumbnail: {fileID: 0}
   botBackgroundColor: {r: 0.2509804, g: 0.7490196, b: 0.35012683, a: 1}
-  maxDepth: 2
+  maxDepth: 4
   randomness: 0.5
   mistakeChance: 0.25
   reactionTime:

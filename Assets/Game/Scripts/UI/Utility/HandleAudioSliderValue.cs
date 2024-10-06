@@ -22,7 +22,9 @@ namespace Dunnatello.UI {
         }
 
         public void SetAudioVolume(float value) {
-            audioHandler.SetAudioVolume(sliderName, value);
+
+            if (audioHandler != null)
+                audioHandler.SetAudioVolume(sliderName, value);
         }
 
     }
