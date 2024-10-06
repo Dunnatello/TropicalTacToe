@@ -1,5 +1,6 @@
 namespace Dunnatello {
     using Dunnatello.AI;
+    using Dunnatello.Audio;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -47,6 +48,8 @@ namespace Dunnatello {
 
         [SerializeField] private EventSystem eventSystem;
 
+        [SerializeField] private PlayRandomPitch placementSound;
+
         private string winType;
         private int winPosition;
 
@@ -78,7 +81,7 @@ namespace Dunnatello {
 
             }
             else {
-                playerHandler.SetPlayerDetails(1, GetPlayerName(1), defaultColor, "Player");
+                playerHandler.SetPlayerDetails(1, GetPlayerName(1), defaultColor, "Player", 1);
             }
             
 
@@ -138,7 +141,7 @@ namespace Dunnatello {
             if (claimedSpace) {
                 spacesFilled++;
                 EndTurn();
-
+                placementSound.Play();
             }
 
         }
