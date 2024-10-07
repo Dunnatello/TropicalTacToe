@@ -1,12 +1,29 @@
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/TropicalTacToe-repository-open-graph.png" /> </p>
+
 # Tropical Tac Toe
 ## Summary
 *Tropical Tac Toe* is a small video game project made in the span of around 4 days.
 I developed this project to hone my Unity development skills and demonstrate my learning progress to others.
 
 This project covers numerous aspects of video game development such as artificial intelligence (AI), settings & audio management, controller support, and local co-operative play.
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Main%20Menu.png" width="750"></img></p>
+<p align="center"><b>Figure 1:</b> The main menu features a tic tac toe board with buttons that integrate into the design.</p>
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Settings.png" width="750"></img></p>
+<p align="center"><b>Figure 2:</b> Players can adjust display and audio settings.</p>
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Game%20Modes.png" width="750"></img></p>
+<p align="center"><b>Figure 3:</b> Multiple game modes are included with easily readable buttons.</p>
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Quit%20Game%20Prompt.png" width="750"></img></p>
+<p align="center"><b>Figure 4:</b> A quit prompt is used to prevent accidental game closes with controllers.</p>
+
 ## Features
 ### Co-Op Play
 Players can play against other friends by using the local cooperative game mode. This mode swaps turns between players and allows two players to play on the same computer.
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Local%20Co-op.png" width="750"></img></p>
+<p align="center"><b>Figure 5:</b> Text elements are used to indicate the current player's turn.</p>
 
 ### Player vs. Bot
 Players can select between several bot personalities that have different skillsets.
@@ -17,7 +34,23 @@ The bots are progressively more challenging since their performance is dictated 
 - <b>Reaction Time</b> - Bots will react with a delay similar to their skill level. 
 Easier bots are simulated to take longer to "think" while challenging bots will make their decisions almost instantly.
 
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Bot%20Information.png" width="750"></img></p>
+<p align="center"><b>Figure 6:</b> Bot information is shown to ensure that players understand the difficulty changes between bot profiles.</p>
+
 Players of all skill levels will be able to enjoy the experience by having bots with different traits.
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Player%20vs%20Bot.png" width="750"></img></p>
+<p align="center"><b>Figure 7:</b> Bot profile appearances are designed to be different than player profiles.</p>
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Bot%20Wins.png" width="750"></img></p>
+<p align="center"><b>Figure 8:</b> Bot names are displayed on the game over screen if the player loses.</p>
+
+### Special Effects
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Win%20Line.png" width="750"></img></p>
+<p align="center"><b>Figure 9:</b> A transition effect is used to display win lines so that players know when the game ends.</p>
+
+<p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Win%20Special%20Effects.png" width="750"></img></p>
+<p align="center"><b>Figure 10:</b> A confetti explosion effect is used when the player wins.</p>
 
 ## Lessons Learned
 ### Minimax Algorithm
