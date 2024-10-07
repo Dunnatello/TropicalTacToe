@@ -65,6 +65,8 @@ Therefore, after implementing strategies to add variation to the AI's decisions,
 I also learned how to implement a wavy text effect on TextMeshPro text elements by modifying the vertices of each character and mapping the characters to the sine wave.
 The effect complements the tropical theme of the project, so it resulted in a nice visual effect.
 
+### User Interface Design
+This project also gave me the opportunity to polish my user interface design skills. I continously iterated over numerous designs until I achieved the final version.
 ## Future Considerations
 ### Peer-to-Peer Multiplayer
 I did consider adding an additional game mode so that players could play online with other players. However, after researching the various multiplayer frameworks such as Unity Relay and Mirror, I decided against implementing multiplayer.
@@ -84,6 +86,12 @@ I was considering using Unity Relay or Mirror for peer-to-peer networking, but U
 <i>(Additionally, I am not planning on monetizing this project, so incurring server costs would not be very wise!)</I>
 
 I will be interested in learning more about Unity Relay in the future, but hopefully with a more relevant project that can take advantage of the service fully.
+
+### Customizable Bots
+Another idea that I could implement in the future is customizable bot profiles. Currently, there are 5 bot profiles, but I could add additional user interface sliders to allow players to customize the bot traits directly.
+
+### Additional Game Modes
+I could also introduce new game modes such as larger tic tac toe boards and powerup skills. However, this would require developing a system to dynamically generate tic tac toe boards.
 
 ## Conclusion
 Developing *Tropical Tac Toe* has taught me a few new skills and allowed me to design, develop, and complete a project in a short time frame.
