@@ -6,6 +6,7 @@
 I developed this project to hone my Unity development skills and demonstrate my learning progress to others.
 
 This project covers numerous aspects of video game development such as artificial intelligence (AI), settings & audio management, controller support, and local co-operative play.
+
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Main%20Menu.png" width="750"></img></p>
 <p align="center"><b>Figure 1:</b> The main menu features a tic tac toe board with buttons that integrate into the design.</p>
 
@@ -18,12 +19,21 @@ This project covers numerous aspects of video game development such as artificia
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Quit%20Game%20Prompt.png" width="750"></img></p>
 <p align="center"><b>Figure 4:</b> A quit prompt is used to prevent accidental game closes with controllers.</p>
 
+
+
+https://github.com/user-attachments/assets/fa7c2fea-9abc-41b8-82a1-17dbe50d627b
+<p align="center"><b>Video 1:</b> Players can adjust display and audio settings trivially.</p>
+
+
 ## Features
 ### Co-Op Play
 Players can play against other friends by using the local cooperative game mode. This mode swaps turns between players and allows two players to play on the same computer.
 
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Local%20Co-op.png" width="750"></img></p>
 <p align="center"><b>Figure 5:</b> Text elements are used to indicate the current player's turn.</p>
+
+https://github.com/user-attachments/assets/b0191915-d232-4a00-8bbf-6bb927789a93
+<p align="center"><b>Video 2:</b> Players can alternate turns in the local co-op game mode.</p>
 
 ### Player vs. Bot
 Players can select between several bot personalities that have different skillsets.
@@ -37,6 +47,7 @@ Easier bots are simulated to take longer to "think" while challenging bots will 
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Bot%20Information.png" width="750"></img></p>
 <p align="center"><b>Figure 6:</b> Bot information is shown to ensure that players understand the difficulty changes between bot profiles.</p>
 
+
 Players of all skill levels will be able to enjoy the experience by having bots with different traits.
 
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Player%20vs%20Bot.png" width="750"></img></p>
@@ -44,6 +55,14 @@ Players of all skill levels will be able to enjoy the experience by having bots 
 
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Bot%20Wins.png" width="750"></img></p>
 <p align="center"><b>Figure 8:</b> Bot names are displayed on the game over screen if the player loses.</p>
+
+https://github.com/user-attachments/assets/cf1d0c85-75c2-4bda-8b86-52e78e270409
+<p align="center"><b>Video 3:</b> Multiple bots are included to suit all skill levels.</p>
+
+
+
+https://github.com/user-attachments/assets/b6892d3e-98da-4c28-b6f9-88e918f1dd01
+<p align="center"><b>Video 4:</b> The highest level bot still has a chance of making mistakes, but it is more likely to win or scratch the game.</p>
 
 ### Special Effects
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Win%20Line.png" width="750"></img></p>
