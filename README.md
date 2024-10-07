@@ -148,3 +148,6 @@ More music by this artist can be found [here](https://incompetech.com/).
 <b>Catlands Games</b> - [9 Free Backgrounds](https://assetstore.unity.com/packages/2d/environments/9-free-backgrounds-285183)  
 ##### Paid
 <b>Archanor VFX</b> - [Super Confetti FX](https://assetstore.unity.com/packages/2d/environments/9-free-backgrounds-285183)  
+
+#### Font
+[Montserrat](https://fonts.google.com/specimen/Montserrat)
