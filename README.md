@@ -7,6 +7,9 @@ I developed this project to hone my Unity development skills and demonstrate my 
 
 This project covers numerous aspects of video game development such as artificial intelligence (AI), settings & audio management, controller support, and local co-operative play.
 
+You can download the game from the [Releases](https://github.com/Dunnatello/TropicalTacToe/releases) section or [itch.io](https://dunnatello.itch.io/tropicaltactoe).
+
+## Game Menus
 <p align="center"><img src="https://github.com/Dunnatello/TicTacToe/blob/main/GitHub%20Readme%20Data/Images/Main%20Menu.png" width="750"></img></p>
 <p align="center"><b>Figure 1:</b> The main menu features a tic tac toe board with buttons that integrate into the design.</p>
 
